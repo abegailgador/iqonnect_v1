@@ -29,3 +29,13 @@
     </div>  
   </div>
 </div>
+
+<br><br><br>
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <p>Already have an account?</p>
+      <a href="<?php echo base_url('user/login')?>">Log In</a>
+    </div>
+  </div>
+</div>
