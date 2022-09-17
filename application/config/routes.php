@@ -49,11 +49,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'pages/view';
+// $route['default_controller'] = 'pages/view';
+$route['default_controller'] = 'Auth/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
 // --------------------------------------------------------------------------
-// User login
-$route['login'] = 'login/view';
+// Auth Routes
+
+$route['user/login'] = 'Auth/login';
+
+// iQonnect Main Routes
+$route['iqonnect'] = 'Pages/view';

@@ -1,13 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content=
-  "IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iQonnect</title>
-</head>
-<body>
-  <h1><?php echo $title; ?></h1>
-</body>
-</html>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><?php echo $title; ?></h5>
+        </div>
+        <div class="card-body">
+          <form action="<?php echo base_url('iqonnect')?>" method="POST">
+            <div class="form-group">
+              <label for="email" class="col-sm-2 col-form-label">Email</label>
+              <input type="text" name="email" class="form-control">
+              <small><?php echo form_error('email'); ?></small>
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="col-sm-2 col-form-label">Password</label>
+              <input type="password" name="password" class="form-control">
+              <small><?php echo form_error('password'); ?></small>
+            </div>
+
+            <br>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>
