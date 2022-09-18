@@ -4,6 +4,7 @@ CREATE TABLE Student (
     student_id int NOT NULL,
     last_name varchar(255) NOT NULL,
     first_name varchar(255) NOT NULL,
+    middle_name varchar(255),
     email_address varchar(255) NOT NULL,
     course varchar(255) NOT NULL,
     year_level varchar(255) NOT NULL,
@@ -11,54 +12,64 @@ CREATE TABLE Student (
     PRIMARY KEY (student_id)
 );
 
-INSERT INTO Student (student_id, last_name, first_name, email_address, course, year_level, password) VALUES
-('201902003', 'Gador', 'Abegail', 'agaddor_ccs@uspf.edu.ph', 'BSIT', '4th Year', 'BSIT123'),
-('201902004', 'Dela Cruz', 'Juan', 'jcruz_ccs@uspf.edu.ph', 'BSIT', '2nd Year', 'BSIT211'),
-('201902005', 'Doe', 'Jane', 'jdoe_ccs@uspf.edu.ph', 'BSCS', '1st Year', 'test123');
+INSERT INTO Student (student_id, last_name, first_name, middle_name, email_address, course, year_level, password) VALUES
+('201902003', 'Gador', 'Abegail', 'Morillo', 'agaddor_ccs@uspf.edu.ph', 'BSIT', '4th Year', 'BSIT123'),
+('201902004', 'Dela Cruz', 'Juan', NULL ,'jcruz_ccs@uspf.edu.ph', 'BSIT', '2nd Year', 'BSIT211'),
+('201902005', 'Doe', 'Jane', 'Rizal', 'jdoe_ccs@uspf.edu.ph', 'BSCS', '1st Year', 'test123');
 
 -- all goods
-CREATE TABLE Faculty (
-    faculty_id int NOT NULL,
+CREATE TABLE Instructor (
+    instructor_id int NOT NULL,
     last_name varchar(255) NOT NULL,
     first_name varchar(255) NOT NULL,
+    middle_name varchar(255),
     email_address varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
-    PRIMARY KEY (faculty_id)
+    PRIMARY KEY (instructor_id)
 );
 
-INSERT INTO Faculty (faculty_id, last_name, first_name, email_address, password) VALUES
-('10001', 'Rizal', 'Jose', 'jrizal@uspf.edu.ph', 'JRizal'),
-('10002', 'Riz', 'J-Eaazy', 'eaazy@uspf.edu.ph', 'Eaazy1'),
-('50008', 'Martin', 'Coco', 'cmartin@uspf.edu.ph', 'martin');
+INSERT INTO Instructor (instructor_id, last_name, first_name, middle_name, email_address, password) VALUES
+('10001', 'Rizal', 'Jose', NULL, 'jrizal@uspf.edu.ph', 'JRizal'),
+('10002', 'Riz', 'J-Eaazy', 'Pasay', 'eaazy@uspf.edu.ph', 'Eaazy1'),
+('50008', 'Martin', 'Coco', 'Paday', 'cmartin@uspf.edu.ph', 'martin');
 
 -- all goods
 CREATE TABLE ITAdmin (
     admin_id int NOT NULL,
     last_name varchar(255) NOT NULL,
     first_name varchar(255) NOT NULL,
+    middle_name varchar(255),
     email_address varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
     PRIMARY KEY (admin_id)
 );
 
-INSERT INTO ITAdmin (admin_id, last_name, first_name, email_address, password) VALUES
-('189001', 'Ramsay', 'Gordson', 'gordon_itadmin@uspf.edu.ph', 'ADMINpass123'),
-('189002', 'Dalisay', 'Cardo', 'dalisay_itadmin@uspf.edu.ph', 'ADMINpass456');
+INSERT INTO ITAdmin (admin_id, last_name, first_name, middle_name, email_address, password) VALUES
+('189001', 'Ramsay', 'Gordson', 'Chef', 'gordon_itadmin@uspf.edu.ph', 'ADMINpass123'),
+('189002', 'Dalisay', 'Cardo', 'Martin', 'dalisay_itadmin@uspf.edu.ph', 'ADMINpass456');
 
 -- all goods
 CREATE TABLE Status (
-    status_id int NOT NULL AUTO_INCREMENT,
-    status varchar(255) NOT NULL,
+    status_id int AUTO_INCREMENT,
+    status varchar(255),
     PRIMARY KEY (status_id)
 );
 
 INSERT INTO Status (status) VALUES 
 ('Online'), 
 ('Offline'), 
-('Away'), 
-('Do not Disturb'), 
-('Vacation');
+('On Call');
 
+CREATE TABLE CustomizeStatus (
+    custom_status_id int AUTO_INCREMENT,
+    status varchar(255),
+    PRIMARY KEY (custom_status_id)
+);
+
+INSERT INTO CustomizeStatus (status) VALUES 
+('Work until 9PM'), 
+('Capstone Consultation until 11PM'), 
+('Vacation Leave from 8/1/2022-8/30/2022');
 
 -- all goods
 CREATE TABLE UserType (
@@ -69,8 +80,8 @@ CREATE TABLE UserType (
 
 INSERT INTO UserType (type) VALUES 
 ('Student'), 
-('Faculty'), 
-('Admin');
+('Instructor'), 
+('ITAdmin');
 
 
 -- all goods
@@ -81,20 +92,36 @@ CREATE TABLE Permission (
 );
 INSERT INTO Permission (type) VALUES 
 ('Activated'), 
+('Not yet Registered'),
 ('Deactivated');
 
 
---  only (subject_code) ALL GOODS
-CREATE TABLE Semester (
-    semester_id int NOT NULL AUTO_INCREMENT,
-    semester_type varchar(255) NOT NULL,
-    PRIMARY KEY (semester_id)
+-- add og school year na table tas i-add sa semester FK REFERENCES
+CREATE TABLE SchoolYear (
+    school_year_id int NOT NULL AUTO_INCREMENT,
+    school_year varchar(255) NOT NULL,
+    PRIMARY KEY (school_year_id)
 );
 
-INSERT INTO Semester (semester_type) VALUES 
-('First'), 
-('Second'),
-('Summer');
+INSERT INTO SchoolYear (school_year) VALUES 
+("2018 - 2019"), 
+("2020 - 2021"),
+("2021 - 2022");
+
+
+-- NEWLY ADDED TABLE LINKED TO SUBJECT
+CREATE TABLE Section (
+    section_id int NOT NULL AUTO_INCREMENT,
+    class_section varchar(255) NOT NULL,
+    room_location varchar(255) NOT NULL,
+    class_time varchar(255) NOT NULL,
+    room_day varchar(255) NOT NULL,
+    PRIMARY KEY (section_id)
+);
+
+INSERT INTO Section (class_section, room_location, class_time, room_day) VALUES 
+("F", "North Building Room 405", "10AM - 7:00PM", "Monday"), 
+("CCS1", "North Building Room 405", "10AM - 7:00PM", "Monday");
 
 
 -- linked to chat message 
@@ -123,45 +150,65 @@ INSERT INTO GroupFile (file_name) VALUES
 ('testgroup.txt');
 
 
--- with foreign key constraints (Subject, Semester, SubjectGroupChat, ) 11/16
+-- with foreign key constraints (Subject, Semester, SubjectGroupChat, ) 12/17
+
+-- add og school year na table tas i-add sa semester FK REFERENCES
+CREATE TABLE Semester (
+    semester_id int NOT NULL AUTO_INCREMENT,
+    semester_type varchar(255) NOT NULL,
+    school_year_id int NOT NULL,
+    PRIMARY KEY (semester_id),
+    FOREIGN KEY (school_year_id) REFERENCES SchoolYear (school_year_id)
+);
+
+INSERT INTO Semester (semester_type, school_year_id) VALUES 
+('First', 1), 
+('Second', 1),
+('Summer', 1);
 
 -- 5 fk (student_id,faculty_id,admin_id,user_type_id,status_id, permission_id) ALL GOODS --NOT NULL para di ma confuse ang DB to link sa corresponding user
 CREATE TABLE Users (
     user_id int NOT NULL AUTO_INCREMENT,
     student_id int,
-    faculty_id int,
+    instructor_id int,
     admin_id int,
     user_type_id int NOT NULL,
-    status_id int NOT NULL,
+    status_id int,
+    custom_status_id int,
     permission_id int NOT NULL,
     PRIMARY KEY (user_id),
     FOREIGN KEY (student_id) REFERENCES Student(student_id),
-    FOREIGN KEY (faculty_id) REFERENCES Faculty(faculty_id),
+    FOREIGN KEY (instructor_id) REFERENCES Instructor(instructor_id),
     FOREIGN KEY (admin_id) REFERENCES ITAdmin(admin_id),
     FOREIGN KEY (user_type_id) REFERENCES UserType(user_type_id),
     FOREIGN KEY (status_id) REFERENCES Status(status_id),
+    FOREIGN KEY (custom_status_id) REFERENCES CustomizeStatus(custom_status_id),
     FOREIGN KEY (permission_id) REFERENCES Permission(permission_id)
 );
 
-INSERT INTO Users (student_id, faculty_id, admin_id, user_type_id, status_id, permission_id) VALUES
-(201902003, NULL, NULL, 1, 2, 1),
-(201902004, NULL, NULL, 1, 2, 1),
-(201902005, NULL, NULL, 1, 2, 1),
-(NULL, 10001, NULL, 2, 2, 1);
+INSERT INTO Users (student_id, instructor_id, admin_id, user_type_id, status_id, custom_status_id, permission_id) VALUES
+(201902003, NULL, NULL, 1, 2, NULL, 1),
+(201902004, NULL, NULL, 1, NULL, 2, 1),
+(201902005, NULL, NULL, 1, 2, NULL, 1),
+(NULL, 10001, NULL, 2, NULL, 3, 1);
 
 
 -- 1fk only (semester_id) ALL GOODS
 CREATE TABLE Subject (
+    subject_id int NOT NULL AUTO_INCREMENT,
     subject_code varchar(255) NOT NULL,
     subject_description varchar(255) NOT NULL,
     semester_id int NOT NULL,
-    school_year varchar(255) NOT NULL,
-    PRIMARY KEY (subject_code),
-    FOREIGN KEY (semester_id) REFERENCES Semester(semester_id)
+    school_year_id int NOT NULL,
+    section_id int NOT NULL,
+    PRIMARY KEY (subject_id),
+    FOREIGN KEY (semester_id) REFERENCES Semester(semester_id),
+    FOREIGN KEY (school_year_id) REFERENCES SchoolYear(school_year_id),
+    FOREIGN KEY (section_id) REFERENCES Section(section_id)
 );
 
-INSERT INTO Subject (subject_code, subject_description, semester_id, school_year) VALUES
-('PE1', 'Physical Education', 1, '2021-2022');
+INSERT INTO Subject (subject_code, subject_description, semester_id, school_year_id, section_id) VALUES
+('PE1', 'Physical Education', 1, 1, 1);
 
 -- 2 fk only (sender_id,receiver_id,file_id) PERSONAL CHAT ALL GOODS
 CREATE TABLE ChatMessage (
@@ -190,36 +237,35 @@ CREATE TABLE ArchivedGroupChat (
     archived_id int NOT NULL AUTO_INCREMENT,
     subject_group_id int,
     group_id int,
-    member_id int NOT NULL,
     group_message_id int,
     PRIMARY KEY (archived_id),
     FOREIGN KEY (subject_group_id) REFERENCES SubjectGroupChat(subject_group_id),
     FOREIGN KEY (group_id) REFERENCES GroupChat(group_id),
-    FOREIGN KEY (member_id) REFERENCES Users(user_id),
     FOREIGN KEY (group_message_id) REFERENCES GroupMessage(group_message_id)
 );
 
-INSERT INTO ArchivedGroupChat (subject_group_id, group_id, member_id, group_message_id) VALUES 
-(1, NULL, 1, NULL),
-(1, NULL, 2, NULL),
-(NULL, 1, 1, NULL);
+INSERT INTO ArchivedGroupChat (subject_group_id, group_id, group_message_id) VALUES 
+(1, NULL, NULL),
+(1, NULL, NULL),
+(NULL, 1, NULL);
 
 
 CREATE TABLE SubjectGroupChat (
-    subject_group_id int NOT NULL AUTO_INCREMENT,
-    subject_code varchar(255) NOT NULL,
+    subject_group_id int,
+    subject_id int NOT NULL,
     member_id int NOT NULL,
+    section_id int NOT NULL,
     group_message_id int,
-    PRIMARY KEY (subject_group_id),
-    FOREIGN KEY (subject_code) REFERENCES Subject(subject_code),
+    FOREIGN KEY (subject_id) REFERENCES Subject(subject_id),
     FOREIGN KEY (member_id) REFERENCES Users(user_id),
+    FOREIGN KEY (section_id) REFERENCES Sections(section_id),
     FOREIGN KEY (group_message_id) REFERENCES GroupMessage(group_message_id)
 );
 
-INSERT INTO SubjectGroupChat (subject_code, member_id, group_message_id) VALUES 
-('PE1', 1, 1),
-('PE1', 2, NULL),
-('PE1', 1, 2);
+INSERT INTO SubjectGroupChat (subject_group_id, subject_id, member_id, group_message_id) VALUES 
+(1, 1, 1, 1),
+(1, 1, 2, NULL),
+(1, 1, 4, 2);
 
 CREATE TABLE GroupChat (
     group_id int NOT NULL AUTO_INCREMENT,
@@ -235,6 +281,11 @@ INSERT INTO GroupChat (group_name, member_id, group_message_id) VALUES
 ('CCS GroupChat', 1, 1),
 ('CCS GroupChat', 2, NULL),
 ('CCS GroupChat', 1, 2);
+
+
+ group_member_id
+insert INTO GroupChat (group_member_id, )
+
 
 -- naka link siya sa group/archived/subjectgc by groupmessage id
 CREATE TABLE GroupMessage (
