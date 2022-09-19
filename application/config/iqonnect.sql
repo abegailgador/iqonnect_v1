@@ -237,54 +237,55 @@ CREATE TABLE ArchivedGroupChat (
     archived_id int NOT NULL AUTO_INCREMENT,
     subject_group_id int,
     group_id int,
-    group_message_id int,
     PRIMARY KEY (archived_id),
     FOREIGN KEY (subject_group_id) REFERENCES SubjectGroupChat(subject_group_id),
-    FOREIGN KEY (group_id) REFERENCES GroupChat(group_id),
-    FOREIGN KEY (group_message_id) REFERENCES GroupMessage(group_message_id)
+    FOREIGN KEY (group_id) REFERENCES GroupChat(group_id)
 );
 
-INSERT INTO ArchivedGroupChat (subject_group_id, group_id, group_message_id) VALUES 
-(1, NULL, NULL),
-(1, NULL, NULL),
-(NULL, 1, NULL);
+INSERT INTO ArchivedGroupChat (subject_group_id, group_id) VALUES 
+(1, NULL),
+(1, NULL),
+(NULL, 1);
 
 
 CREATE TABLE SubjectGroupChat (
-    subject_group_id int,
+    subject_group_id int NOT NULL AUTO_INCREMENT,
     subject_id int NOT NULL,
     member_id int NOT NULL,
     section_id int NOT NULL,
     group_message_id int,
+    subject_image LONGBLOB,
+    PRIMARY KEY (subject_group_id),
     FOREIGN KEY (subject_id) REFERENCES Subject(subject_id),
     FOREIGN KEY (member_id) REFERENCES Users(user_id),
-    FOREIGN KEY (section_id) REFERENCES Sections(section_id),
+    FOREIGN KEY (section_id) REFERENCES Section(section_id),
     FOREIGN KEY (group_message_id) REFERENCES GroupMessage(group_message_id)
 );
 
-INSERT INTO SubjectGroupChat (subject_group_id, subject_id, member_id, group_message_id) VALUES 
+INSERT INTO SubjectGroupChat (subject_id, member_id, section_id, group_message_id, subject_image) VALUES 
 (1, 1, 1, 1),
-(1, 1, 2, NULL),
-(1, 1, 4, 2);
+(1, 2, 1, NULL),
+(1, 4, 1, 2);
+
+ALTER TABLE SubjectGroupChat AUTO_INCREMENT = 100;
 
 CREATE TABLE GroupChat (
     group_id int NOT NULL AUTO_INCREMENT,
     group_name varchar(255) NOT NULL,
     member_id int NOT NULL,
     group_message_id int,
+    group_image LONGBLOB,
     PRIMARY KEY (group_id),
     FOREIGN KEY (member_id) REFERENCES Users(user_id),
     FOREIGN KEY (group_message_id) REFERENCES GroupMessage(group_message_id)
 );
 
-INSERT INTO GroupChat (group_name, member_id, group_message_id) VALUES 
-('CCS GroupChat', 1, 1),
-('CCS GroupChat', 2, NULL),
-('CCS GroupChat', 1, 2);
+INSERT INTO GroupChat (group_name, member_id, group_message_id, group_image) VALUES 
+('CCS GroupChat', 1, 1, NULL),
+('CCS GroupChat', 2, NULL, NULL),
+('CCS GroupChat', 1, 2, NULL);
 
-
- group_member_id
-insert INTO GroupChat (group_member_id, )
+ALTER TABLE GroupChat AUTO_INCREMENT = 200;
 
 
 -- naka link siya sa group/archived/subjectgc by groupmessage id
@@ -304,3 +305,41 @@ INSERT INTO GroupMessage (sender_id, message, group_file_id, time_sent, time_rea
 (1, NULL, 1, '2022-08-31 00:26:10', '2022-08-31 00:28:10'),
 (1, 'Keyboard', 2, '2022-08-31 00:28:10', '2022-08-31 00:48:10'),
 (2, "What's up and down?", 3, '2022-08-31 00:50:10', '2022-08-31 01:28:10');
+
+
+
+
+CREATE TABLE Report  (
+    report_id int NOT NULL AUTO_INCREMENT,
+    reporter_id int NOT NULL,
+    reported_user int,
+    reported_group int,
+    reported_subject int,
+    message longtext,
+    time_file datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (report_id),
+    FOREIGN KEY (reporter_id) REFERENCES Users(user_id),
+    FOREIGN KEY (reported_user) REFERENCES Users(user_id),
+    FOREIGN KEY (reported_group) REFERENCES GroupChat(group_id),
+    FOREIGN KEY (reported_subject) REFERENCES SubjectGroupChat(subject_group_id)
+);
+
+INSERT INTO Report (reporter_id, reported_user, reported_group, reported_subject) VALUES
+(1, NULL, 1, NULL),
+(2, NULL, NULL, 1),
+(1, 2, NULL, NULL);
+
+ALTER
+ALTER TABLE tbl AUTO_INCREMENT = 100;
+
+ALTER TABLE Users
+ADD image LONGBLOB;
+
+
+ALTER TABLE 
+ADD message_viewed int DEFAULT '0',
+
+  `viewed` int(11) DEFAULT '0',
+
+ALTER TABLE Customers
+DROP COLUMN ContactName;
