@@ -343,3 +343,21 @@ ADD message_viewed int DEFAULT '0',
 
 ALTER TABLE Customers
 DROP COLUMN ContactName;
+
+
+
+GITHUB COMMAND
+git log - check latest commits
+git branch - review check out branch
+git add . - stage all changes 
+git commit -a -m "Update message" - commit changes
+
+AFTER CHANGES 
+git add . - stage all changes 
+git commit -a -m "Update message" - commit changes
+git push - push changes
+---- COMMIT AND PUSH THEN SYNCH 
+create pull request
+git fetch - sync origin to local 
+
+
