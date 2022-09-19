@@ -351,12 +351,12 @@ git log - check latest commits
 git branch - review check out branch
 git add . - stage all changes 
 git commit -a -m "Update message" - commit changes
-git push - push changes
-
-
-
 
 AFTER CHANGES 
+git add . - stage all changes 
+git commit -a -m "Update message" - commit changes
+git push - push changes
+---- COMMIT AND PUSH THEN SYNCH 
 create pull request
 git fetch - sync origin to local 
 
