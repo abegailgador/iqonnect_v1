@@ -59,6 +59,7 @@ $route['translate_uri_dashes'] = FALSE;
 // Auth Routes
 
 $route['user/login'] = 'Auth/login';
+$route['user/signup'] = 'Auth/signup';
 $route['user/usertype'] = 'Auth/usertype';
 $route['user/signup/(:any)'] = 'Auth/signup/$1';
 
