@@ -357,7 +357,21 @@ git add . - stage all changes
 git commit -a -m "Update message" - commit changes
 git push - push changes
 ---- COMMIT AND PUSH THEN SYNCH 
-create pull request
+new pull request
 git fetch - sync origin to local 
+check if branch has the updated commits 
+create new pull request>click the corresponding branch
+review the changes
+click create pull request
+add comment for the pull request 
+merge pull request
 
+--MERGE TO LOCAL
+git fetch - sync origin to local branch
+git status - for status only
+git checkout main - check main branch updated changes
+git pull - pull commits from main
+git checkout dev/dev-hazel - to transfer back to ur branch para mag code 
+git merge main - get latest commits from main branch to ur branch
+git log - to verify if naa na dadto sa imong branch ang changes
 

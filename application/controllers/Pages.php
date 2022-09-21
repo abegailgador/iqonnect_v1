@@ -10,11 +10,31 @@ class Pages extends CI_Controller {
 			show_404();
 		}
 
-		$data['title'] = "Welcome to Mobile Legends";
+		$data['title'] = "sample";
 
 		$this->load->view('templates/header');
 		// $this->load->database();
 	  $this->load->view('pages/'.$page, $data);
 		$this->load->view('templates/footer', $data);
 	}
+
+	function index(){
+		//for students and faculty access
+			if($this->session->userdata('level')==='1'){
+					$this->load->view('auth/login');
+			}else{
+					echo "Access Denied";
+			}
+
+	}
+
+	function admin(){
+		//for admin access only
+		if($this->session->userdata('level')==='2'){
+			$this->load->view('auth/admin/login');
+		}else{
+				echo "Access Denied";
+		}
+	}
 }
+	
